@@ -15,6 +15,8 @@ This scripts finds all such images that are older than one day (default) and del
 
 **Instructions**
 
+Requires the Perl DBI module with Postgres support to be present.  In Debien, that would be libdbi-perl.
+
 Change the variables at the beginning of the script to fit your homeserver.
 
 Start the script with a test:
