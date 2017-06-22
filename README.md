@@ -23,11 +23,11 @@ Start the script with a test:
 
 This will delete only one URL cache entry and tell you what it did.
 
-If everything looks ok, you can start it with large numbers:
+If everything looks ok, you can start it with larger numbers:
 
 ```./delurlcache.pl 100 > delurlcache.log```
 
-Note the redirection to a file: delurlcache.pl intentionally logs every single step it does, so in case something goes wrong, you know where to look if you have to fix things.
+will delete 100 cache entries.  Note the redirection to a file:  delurlcache.pl intentionally logs every single step it does, so in case something goes wrong, you know where to look if you have to fix things.
 
 If you think it will manage to do everything as it should, you can tell it to delete all images older than the threshold you defined when editing the variables:
 
