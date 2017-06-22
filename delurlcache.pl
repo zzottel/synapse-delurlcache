@@ -21,7 +21,7 @@ my $mediastore = '/path/to/synapse/media_store';
 # default: 86400 == one day
 my $delage = 86400;
 
-my ($db, $quc, $q, $qt, $ruc, $i, $res, $media_id, $name);
+my ($db, $quc, $qt, $ruc, $i, $res, $media_id, $name);
 
 my $count = $ARGV[0];
 
@@ -41,7 +41,6 @@ $db = DBI->connect("DBI:Pg:dbname=$dbname;host=$dbhost", $dbuser, $dbpwd, {'Rais
 
 # find all cached images that are older than a day
 $quc = $db->prepare('select * from local_media_repository_url_cache where download_ts < ' . (time() - $delage) * 1000);
-$q = $db->prepare('select * from local_media_repository where media_id = ?');
 $qt = $db->prepare('select * from local_media_repository_thumbnails where media_id = ?');
 $quc->execute();
 
