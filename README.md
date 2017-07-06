@@ -3,15 +3,17 @@ Delete images and thumbnails created by URL previews in Synapse
 
 **Purpose**
 
-In its current version, when Synapse creates URL previews, the images that are created in media_store/local_content and media_store/local_thumbnails will never be deleted.  Relatively quickly, they can use large amounts of disk space.
+In its current version, when Synapse creates URL previews, the images that are created in media_store/url_cache and media_store/url_cache_thumbnails will never be deleted.  Relatively quickly, they can use large amounts of disk space.
 
-This scripts finds all such images that are older than one day (default) and deletes them from the database and the file system.
+Synapse versions prior to 0.22.0 stored the files among local content in media_store/local_content and media_store/local_thumbnails.  Files stored there by earlier Synapse versions remain there.
+
+This script finds all such images that are older than one day (default) and deletes them from the database and the file system.
 
 **Caveats**
 
 * Use at your own risk! The script alters your Synapse database!  Always make a backup copy of the database and maybe the media store directories first.  Don't blame me if everything explodes around you, you have been warned.
 * The script assumes you are using PostgreSQL as database backend.  I don't have a homeserver with an Sqlite database I could test with.  PRs welcome.
-* Tested with Synapse 0.22.0 (only!).
+* Tested with Synapse 0.22.0 (only!).  The previous version was tested with Synapse 0.21.1 and is still available in the Synapse0.21.1 branch.  The current script should work with 0.21.1, too, but I didn't test that.
 
 **Instructions**
 
