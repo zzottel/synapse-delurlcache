@@ -21,7 +21,7 @@ my $mediastore = '/path/to/synapse/media_store';
 # default: 86400 == one day
 my $delage = 86400;
 
-my ($db, $quc, $qt, $ruc, $i, $res, $media_id, $name);
+my ($db, $quc, $qt, $ruc, $i, $res, $media_id, $name, @files);
 
 my $count = $ARGV[0];
 
@@ -66,8 +66,16 @@ while ($ruc = $quc->fetchrow_hashref() and $i < $count)
 			}
 		print "Deleting thumbnail files:\n";
 		$media_id =~ /(..)(..)(.*)/;
-		$name = "$mediastore/local_thumbnails/$1/$2/$3";
-		foreach (<$name/*>)
+		$name = "$mediastore/url_cache_thumbnails/$1/$2/$3";
+		@files = <$name/*>;
+		# no files? -> look at the old location
+		if ($#files == -1)
+			{
+			print "No files at new location, trying old location.\n";
+			$name = "$mediastore/local_thumbnails/$1/$2/$3";
+			@files = <$name/*>;
+			}
+		foreach (@files)
 			{
 			print "$_\n";
 			unlink($_) or die("Couldn't remove file $_: $!\n");
@@ -92,9 +100,15 @@ while ($ruc = $quc->fetchrow_hashref() and $i < $count)
 		}
 	print "Deleting image file:\n";
 	$media_id =~ /(..)(..)(.*)/;
-	$name = "$mediastore/local_content/$1/$2/$3";
+	$name = "$mediastore/url_cache/$1/$2/$3";
 	print "$name\n";
-	unlink($name) or die("Couldn't remove file $_: $!\n");
+	unless (unlink($name))
+		{
+		print "Couldn't remove file $name: $!\n";
+		$name =~ s/url_cache/local_content/;
+		print "Removing file $name instead.\n";
+		unlink($name) or die("Couldn't remove file $name: $!\n");
+		}
 	print "Removing URL cache entry from database:\n";
 	$res = $db->do("delete from local_media_repository_url_cache where media_id = '$media_id'");
 	if ($res == 0)
@@ -112,6 +126,7 @@ while ($ruc = $quc->fetchrow_hashref() and $i < $count)
 # don't show error message if we haven't used all available rows
 if ($i == $count)
 	{
+	$qt->finish();
 	$quc->finish();
 	}
 $db->disconnect();
