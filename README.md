@@ -1,6 +1,8 @@
 # synapse-delurlcache
 Delete images and thumbnails created by URL previews in Synapse
 
+This is the version that works with Synapse 0.21.1. For later Synapse versions, please use the master branch!
+
 **Purpose**
 
 In its current version, when Synapse creates URL previews, the images that are created in media_store/local_content and media_store/local_thumbnails will never be deleted.  Relatively quickly, they can use large amounts of disk space.
