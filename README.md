@@ -13,7 +13,7 @@ This script finds all such images that are older than one day (default) and dele
 
 * Use at your own risk! The script alters your Synapse database!  Always make a backup copy of the database and maybe the media store directories first.  Don't blame me if everything explodes around you, you have been warned.
 * The script assumes you are using PostgreSQL as database backend.  I don't have a homeserver with an Sqlite database I could test with.  PRs welcome.
-* Tested with Synapse 0.22.0 (only!).  The previous version was tested with Synapse 0.21.1 and is still available in the Synapse0.21.1 branch.  The current script should work with 0.21.1, too, but I didn't test that.
+* Tested only with Synapse 0.22.0 and 0.22.1.  The previous version was tested with Synapse 0.21.1 and is still available in the Synapse0.21.1 branch.  The current script should work with 0.21.1, too, but I didn't test that.
 
 **Instructions**
 
