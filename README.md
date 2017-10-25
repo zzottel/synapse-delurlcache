@@ -1,9 +1,13 @@
 # synapse-delurlcache
 Delete images and thumbnails created by URL previews in Synapse
 
+**Not required anymore**
+
+Synapse versions 0.24.0 and higher delete their URL caches themselves.  There is no need anymore to run this script!
+
 **Purpose**
 
-In its current version, when Synapse creates URL previews, the images that are created in media_store/url_cache and media_store/url_cache_thumbnails will never be deleted.  Relatively quickly, they can use large amounts of disk space.
+In versions up to 0.23.1, when Synapse created URL previews, the images that are created in media_store/url_cache and media_store/url_cache_thumbnails were never deleted.  Relatively quickly, they could use large amounts of disk space.
 
 Synapse versions prior to 0.22.0 stored the files among local content in media_store/local_content and media_store/local_thumbnails.  Files stored there by earlier Synapse versions remain there.
 
